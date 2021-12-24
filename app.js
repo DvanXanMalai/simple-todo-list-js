@@ -5,20 +5,12 @@ taskList.addEventListener('click',removeTask);
 
 function addTask(e){
     e.preventDefault();
+
     var newTask = document.getElementById('task').value;
-    var li = document.createElement('li');
-    li.appendChild(document.createTextNode(newTask));
-    var deleteBtn = document.createElement('button');
-    deleteBtn.appendChild(document.createTextNode('X'));
-    var doneBtn = document.createElement('button');
-    doneBtn.appendChild(document.createTextNode('Done'));
-    doneBtn.className = 'done';
-    deleteBtn.className="delete";
-    doneBtn.className = 'done';
-    li.appendChild(deleteBtn);
-    li.appendChild(doneBtn);
-    taskList.appendChild(li);
+    const newTaskElement = createTaskElement(newTask);
+    taskList.appendChild(newTaskElement);
 }
+
 function removeTask(e){
     if(e.target.classList.contains('delete')){
         if(confirm('Are you sure? you idiot')){
@@ -31,4 +23,22 @@ function removeTask(e){
         var le = e.target.parentElement;
         taskList.removeChild(le);
     }
+}
+
+// bitch looks more clean now
+function createTaskElement(taskName) {
+    const taskElement = document.createElement("li");
+    taskElement.appendChild(document.createTextNode(taskName));
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.appendChild(document.createTextNode("X"));
+    deleteBtn.className = "delete";
+
+    const doneBtn = document.createElement("button");
+    doneBtn.appendChild(document.createTextNode("Done"));
+    doneBtn.className = "done";
+
+    taskElement.appendChild(deleteBtn);
+    taskElement.appendChild(doneBtn);
+    return taskElement;
 }
